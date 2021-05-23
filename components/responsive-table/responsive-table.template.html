@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<!-- START - COMPONENT  - RESPONSIVE TABLE -->
+
+<!-- START - PANEL -->
+
+<div class="panel panel-default">
+
+  <!-- START - PANEL HEADER -->
+
+  <div class="panel-heading" ng-if="!responsiveTable.hideHeader">
+    <span class="panel-title">
+      <div class="row">
+        <div class="col-sm-6 text-warning">
+    <!--      <i class="mdi mdi-table-large"></i> -->
+          <strong>&#8226;&nbsp;&nbsp;{{responsiveTable.title}}</strong>
+        </div>
+        <div class="col-sm-6 text-right">
+          <button type="button" class="btn btn-default btn-xs" ng-click="responsiveTable.collapsed = !responsiveTable.collapsed" data-toggle="collapse" data-target="#table-{{responsiveTable.id}}" aria-label="Collapse table" title="Collapse table">
+            <i class="mdi {{(responsiveTable.collapsed) ? 'mdi-plus' : 'mdi-minus'}}" aria-hidden="true" ></i>
+          </button>
+        </div>
+      </div>
+    </span>
+  </div>
+
+  <!-- END - PANEL HEADER -->
+
+  <!-- START - PANEL BODY -->
+
+  <div id="table-{{responsiveTable.id}}" class="collapse" ng-class="{in: !responsiveTable.collapsed}">
+
+    <!-- START - PANEL BODY - HEADER -->
+
+    <div class="row" title="">
+
+      <!-- START - PANEL BODY - HEADER - SEARCH SECTION -->
+
+      <div class="col-xs-12 col-md-3">
+        <form class="form-inline" style="margin: 8px 15px 8px 15px;">
+          <div class="form-group form-group-sm" style="margin: 0px;">
+            <div class="input-group" title="">
+              <span class="input-group-addon input-sm">
+                <i class="mdi mdi-18px mdi-magnify" aria-hidden="true"></i>
+              </span>
+              <input type="text" class="form-control col-md-4" placeholder="Search {{responsiveTable.title}}" ng-model="responsiveTable.query.$">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- END - PANEL BODY - HEADER - SEARCH SECTION -->
+
+      <!-- START - PANEL BODY - HEADER - MIDDLE SECTION -->
+
+      <div class="col-xs-12 col-md-3">
+        <div class="text-left" style="margin: 12px 0px 0px 0px;" ng-if="responsiveTable.timezoneSelector" title="">
+          <label class="radio-inline">
+            <input type="radio" id="radio-locale" ng-model="responsiveTable.timezoneUTC" ng-value="false"> Local Time
+          </label>
+          <label class="radio-inline">
+            <input type="radio" id="radio-utc" ng-model="responsiveTable.timezoneUTC" ng-value="true"> UTC Time
+          </label>
+        </div>
+      </div>
+
+      <!-- END - PANEL BODY - HEADER - MIDDLE SECTION -->
+
+      <!-- START - PANEL BODY - HEADER - BUTTONS SECTION -->
+
+      <div class="col-xs-12 col-md-6 text-right">
+        <div style="margin: 8px 15px 8px 15px;">
+          <button type="button" class="btn btn-default btn-sm" ng-click="responsiveTable.loadData()" aria-label="Refresh Data" title="Refresh Data">
+            <i class="mdi mdi-18px mdi-refresh" aria-hidden="true" ></i> Refresh Data
+              <!-- <i class="fa fa-fw fa-refresh" aria-hidden="true"></i> Refresh Data -->
+          </button>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" aria-label="Export Data" title="Export Data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="mdi mdi-18px mdi-export" aria-hidden="true" ></i> Export Data <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="disabled"><a href="" ng-click="" title="">CSV File</a></li>
+              <li class="disabled"><a href="" ng-click="" title="">XML File</a></li>
+              <li class="disabled"><a href="" ng-click="" title="">JSON File</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" aria-label="Settings" title="Settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="mdi mdi-18px mdi-settings" aria-hidden="true" ></i> Settings <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a href="" ng-click="responsiveTable.setPageSize(5)" title="">5 Records</a></li>
+              <li><a href="" ng-click="responsiveTable.setPageSize(10)" title="">10 Records</a></li>
+              <li><a href="" ng-click="responsiveTable.setPageSize(20)" title="">20 Records</a></li>
+              <li><a href="" ng-click="responsiveTable.setPageSize(50)" title="">50 Records</a></li>
+              <li><a href="" ng-click="responsiveTable.setPageSize(100)" title="">100 Records</a></li>
+              <li role="separator" class="divider" ng-if="responsiveTable.timezoneSelector" title=""></li>
+              <li ng-if="responsiveTable.timezoneSelector"><a href="" ng-click="responsiveTable.timezoneUTC = true" title="">UTC/GMT Time</a></li>
+              <li ng-if="responsiveTable.timezoneSelector"><a href="" ng-click="responsiveTable.timezoneUTC = false" title="">Local Time</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- END - PANEL BODY - HEADER - BUTTONS SECTION -->
+
+    </div>
+
+    <!-- END - PANEL BODY - HEADER -->
+
+    <!-- START - PANEL BODY - TABLE -->
+
+    <table class="table table-responsive table-hover table-bordered" style="margin: 0px;">
+
+      <!-- START - PANEL BODY - TABLE - HEADER -->
+
+      <thead>
+        <tr>
+          <th>
+            <button type="button" class="btn btn-default btn-xs" ng-click="responsiveTable.newRecord()" aria-label="New Record" title="New Record">
+              <i class="mdi mdi-plus" aria-hidden="true"></i> New Record
+            </button>
+          </th>
+          <th ng-repeat="field in responsiveTable.fields" title="{{field.displayName}}"><a href="" ng-click="responsiveTable.setOrderBy(field.orderByField || field.field)">{{ (['datetimetimezone', 'datetimezone', 'timetimezone'].indexOf(field.filter) != -1 || ['datetimetimezone', 'datetimezone', 'timetimezone'].indexOf(field.filterIfNull) != -1)  ? field.displayName + (responsiveTable.timezoneUTC ? ' (UTC)' : ' (Local)') : field.displayName}}</a> <a href="" ng-click="responsiveTable.setOrderBy(field.orderByField || field.field)"><i class="mdi mdi-18px {{((field.orderByField || field.field) == responsiveTable.orderBy) ? ((responsiveTable.reverse) ? 'mdi-menu-down' : 'mdi-menu-up'): ''}}"></i></a></th>
+        </tr>
+      </thead>
+
+      <!-- END - PANEL BODY - TABLE - HEADER -->
+
+      <!-- START - PANEL BODY - TABLE - TABLE BODY -->
+
+      <tbody>
+
+        <!-- START - PANEL BODY - TABLE - TABLE BODY - REGULAR ROWS -->
+
+        <tr ng-repeat="record in filteredData = (responsiveTable.data | filter : responsiveTable.query) | orderBy : responsiveTable.orderBy : responsiveTable.reverse | limitTo : responsiveTable.pageSize : (responsiveTable.page - 1) * responsiveTable.pageSize">
+
+          <!-- START - PANEL BODY - TABLE - TABLE BODY - REGULAR ROWS - STATIC COLS -->
+
+          <td class="col-sm-2 col-md-1">
+            <button disabled="disabled" type="button" class="btn btn-default btn-xs" ng-click="responsiveTable.viewRecord(record.id)" aria-label="View Record" title="View Record">
+              <i class="mdi mdi-eye-outline" aria-hidden="true"></i>
+            </button>
+            <button disabled="disabled" type="button" class="btn btn-default btn-xs" ng-click="responsiveTable.currentId = record.id" data-toggle="modal" data-target="#dialog-revision" aria-label="Flag Record for Revision" title="Flag Record for Revision">
+              <i class="mdi mdi-alert-circle-outline" aria-hidden="true"></i>
+            </button>
+            <span ng-repeat="button in responsiveTable.buttons | orderBy : 'order'">
+              <button ng-if="button.type == 'groundTrack'" ng-disabled="!record.line1" type="button" class="btn btn-default btn-xs" ng-click="responsiveTable.viewGroundTrack(record.satname, record.line1, record.line2, record.object_type, record.apogee, record.perigee)" aria-label="{{button.title}}" title="{{button.title}}">
+                <i class="mdi {{button.icon}}" aria-hidden="true"></i>
+              </button>
+            </span>
+          </td>
+
+          <!-- END - PANEL BODY - TABLE - TABLE BODY - REGULAR ROWS - STATIC COLS -->
+
+          <!-- START - PANEL BODY - TABLE - TABLE BODY - REGULAR ROWS - DYNAMIC COLS -->
+
+          <td ng-repeat="field in responsiveTable.fields" class="{{field.class}}">
+            <!-- <span ng-bind-html="field.filter ? responsiveTable.formatData(record[field.field], field.filter, field.options) : record[field.field]"></span> -->
+            <span ng-bind-html="(field.fieldIfNull && record[field.field] == null) ? (field.filterIfNull ? responsiveTable.formatData(record[field.fieldIfNull], field.filterIfNull, field.optionsIfNull) : record[field.field]): (field.filter ? responsiveTable.formatData(record[field.field], field.filter, field.options) : record[field.field])"></span>
+            <!--  {{(field.filter) ? responsiveTable.formatData(record[field.field], field.filter, field.options) : record[field.field]}} -->
+          </td>
+
+          <!-- END - PANEL BODY - TABLE - TABLE BODY - REGULAR ROWS - DYNAMIC COLS -->
+
+        </tr>
+
+        <!-- END - PANEL BODY - TABLE - TABLE BODY - REGULAR ROWS -->
+
+        <!-- START - PANEL BODY - TABLE - TABLE BODY - SPECIAL ROWS -->
+
+        <tr ng-if="filteredData.length == 0">
+          <td class= "text-center" colspan="{{responsiveTable.fields.length + 1}}"><br><strong>No records found</strong><br><br></td>
+        </tr>
+        <tr ng-if="responsiveTable.loading">
+          <td class= "text-center" colspan="{{responsiveTable.fields.length + 1}}"><br><strong><i class="fa fa-fw fa-spinner fa-spin"></i> {{responsiveTable.loadingMessage}}</strong><br><br></td>
+        </tr>
+        <tr ng-if="responsiveTable.errorCode > 0">
+          <td class= "text-center text-danger" colspan="{{responsiveTable.fields.length + 1}}"><br><marka><strong>Error {{responsiveTable.errorCode}} - {{responsiveTable.errorMessage}}</strong></marka><br><br></td>
+        </tr>
+
+        <!-- END - PANEL BODY - TABLE - TABLE BODY - SPECIAL ROWS -->
+
+      </tbody>
+
+      <!-- END - PANEL BODY - TABLE - TABLE BODY -->
+
+    </table>
+
+    <!-- END - PANEL BODY - TABLE -->
+
+    <!-- START - PANEL BODY - FOOTER -->
+
+    <div class="row">
+
+      <!-- START - PANEL BODY - FOOTER - RECORDS COUNT -->
+
+      <div class= "col-md-6" title="">
+        <div style="margin: 12px 15px 6px 15px;" ng-if="responsiveTable.loading || responsiveTable.errorCode > 0">
+          Showing 0 to 0 of 0 records <span class="text-muted">(Filtered from 0 total records)</span>
+        </div>
+        <div style="margin: 12px 15px 6px 15px;" ng-if="!responsiveTable.loading && responsiveTable.errorCode == 0">
+          Showing {{(filteredData.length == 0) ? 0 : (responsiveTable.page - 1) * responsiveTable.pageSize + 1}} to {{(responsiveTable.page * responsiveTable.pageSize &lt; filteredData.length) ? responsiveTable.page * responsiveTable.pageSize : filteredData.length}} of {{filteredData.length}} records <span class="text-muted">(Filtered from {{responsiveTable.data.length}} total records)</span>
+        </div>
+      </div>
+
+      <!-- END - PANEL BODY - FOOTER - RECORDS COUNT -->
+
+      <!-- START - PANEL BODY - FOOTER - PAGINATION -->
+
+      <div class= "col-md-6">
+        <ul class="pagination pagination-sm pull-right" style="margin: 8px 15px 8px 15px;">
+          <li ng-class="{disabled: responsiveTable.page <= 1}">
+            <a href="" ng-click="responsiveTable.setPage(1)" aria-label="First" title="First Page">
+              <span aria-hidden="true">First</span>
+            </a>
+          </li>
+          <li ng-class="{disabled: responsiveTable.page <= 1}">
+            <a href="" ng-click="responsiveTable.setPage(responsiveTable.page - 1)" aria-label="Previous" title="Previous Page">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li ng-repeat="index in responsiveTable.pagination" ng-class="{active: responsiveTable.page == index}"><a href="" ng-click="responsiveTable.setPage(index)" title="Page {{index}}">{{index}}</a></li>
+          <li ng-class="{disabled: responsiveTable.page >= responsiveTable.totalPages}">
+            <a href="" ng-click="responsiveTable.setPage(responsiveTable.page + 1)" aria-label="Next" title="Next Page">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li ng-class="{disabled: responsiveTable.page >= responsiveTable.totalPages}">
+            <a href="" ng-click="responsiveTable.setPage(responsiveTable.totalPages)" aria-label="Last" title="Last Page">
+              <span aria-hidden="true">Last</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- END - PANEL BODY - FOOTER - PAGINATION -->
+
+    </div>
+
+    <!-- END - PANEL BODY - FOOTER -->
+
+    <!-- START - PANEL BODY - DIALOGS -->
+
+    <!-- START - PANEL BODY - DIALOGS - DIALOG REVISION -->
+
+    <div class="modal fade" id="dialog-revision" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <h4 class="modal-title" id="myModalLabel"><i class="mdi mdi-alert-circle-outline" aria-hidden="true"></i> Flag this record for revision</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group form-group-sm form-group-required">
+                <label for="Record" class="col-sm-3 control-label">Record</label>
+                <div class="col-sm-9">
+                  <p class="form-control-static">Source: {{responsiveTable.source}} Id: {{responsiveTable.currentId}}</p>
+                </div>
+              </div>
+              <div class="form-group form-group-sm required">
+                <label for="reason" class="col-sm-3 control-label">Reason</label>
+                <div class="col-sm-9">
+                  <select class="form-control" placeholder="Name" required>
+                    <option value="" selected disabled>Reason</option>
+                    <option>Incorrect</option>
+                    <option>Incomplete</option>
+                    <option>Lack Reference</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-group-sm required">
+                <label for="revision" class="col-sm-3 control-label">Suggested Revision</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" id="comments" rows="3" placeholder="Suggested Revision" required></textarea>
+                </div>
+              </div>
+              <div class="form-group form-group-sm required">
+                <label for="references" class="col-sm-3 control-label">Reference(s)</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" id="references" rows="3" placeholder="Reference(s)" required></textarea>
+                </div>
+              </div>
+              <hr>
+              <div class="form-group form-group-sm">
+                <label for="Name (Optional)" class="col-sm-3 control-label">Name (Optional)</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="name" placeholder="Name">
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
+                <label for="Email (Optional)" class="col-sm-3 control-label">Email (Optional)</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default">Flag Record</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END - PANEL BODY - DIALOGS - DIALOG REVISION -->
+
+    <!-- START - PANEL BODY - DIALOGS - DIALOG TABLE FORM -->
+
+    <div class="modal fade" id="{{responsiveTable.id}}-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel222">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel222">Record: {{responsiveTable.title}}</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Event ID</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Launch ID</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail34" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Event Date</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail35" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Status</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail36" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-4 control-label">Type</label>
+                <div class="col-sm-8">
+                  <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Description</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail367" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Window Duration</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail376" placeholder="Email">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END - PANEL BODY - DIALOGS - DIALOG TABLE FORM -->
+
+    <!-- END - PANEL BODY - DIALOGS -->
+
+  </div>
+
+  <!-- END - PANEL BODY -->
+
+</div>
+
+<!-- END - PANEL -->
+
+<!-- END - COMPONENT - RESPONSIVE TABLE -->
