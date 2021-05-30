@@ -26,13 +26,13 @@ A live demo is available here: http://projecting.com.br/isc14/
 
 ## Screenshots
 Dashboard Page
-![Dashboard Page](./images/readme_img_1.jpg)
+![Dashboard Page](./images/readme_img_1.png)
 
 Table Page
-![Table Page](./images/readme_img_2.jpg)
+![Table Page](./images/readme_img_2.png)
 
 Form Page
-![Form Page](./images/readme_img_3.jpg)
+![Form Page](./images/readme_img_3.png)
 
 ## Installation
 
