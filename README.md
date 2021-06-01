@@ -18,6 +18,7 @@ A live demo is available here: http://projecting.com.br/isc14/
   * Related Resources
 * Authorization
   * API key
+* Mobile Support
 
 ## Dependencies
 * AngularJS 1.5.11
