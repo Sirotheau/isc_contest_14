@@ -18,11 +18,10 @@ A live demo is available here: http://projecting.com.br/isc14/
   * Related Resources
 * Authorization
   * API key
-  * OIDC
 
 ## Dependencies
-* AngularJS 1.5
-* Bootstrap 3.3
+* AngularJS 1.5.11
+* Bootstrap 3.3.7
 
 ## Screenshots
 Dashboard Page
