@@ -1,0 +1,96 @@
+/* Animate `ngRepeat` in `termList` component */
+.term-list-item.ng-enter,
+.term-list-item.ng-leave,
+.term-list-item.ng-move {
+  overflow: hidden;
+  transition: 0.5s linear all;
+}
+
+.term-list-item.ng-enter,
+.term-list-item.ng-leave.ng-leave-active,
+.term-list-item.ng-move {
+  height: 0;
+  margin-bottom: 0;
+  opacity: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.term-list-item.ng-enter.ng-enter-active,
+.term-list-item.ng-leave,
+.term-list-item.ng-move.ng-move-active {
+  height: 30px; /*120px*/
+  margin-bottom: 20px;
+  opacity: 1;
+  padding-bottom: 4px;
+  padding-top: 15px;
+}
+
+/* Animate `ngRepeat` in `acronymList` component */
+.acronym-list-item.ng-enter,
+.acronym-list-item.ng-leave,
+.acronym-list-item.ng-move {
+  overflow: hidden;
+  transition: 0.5s linear all;
+}
+
+.acronym-list-item.ng-enter,
+.acronym-list-item.ng-leave.ng-leave-active,
+.acronym-list-item.ng-move {
+  height: 0;
+  margin-bottom: 0;
+  opacity: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.acronym-list-item.ng-enter.ng-enter-active,
+.acronym-list-item.ng-leave,
+.acronym-list-item.ng-move.ng-move-active {
+  height: 30px; /*120px*/
+  margin-bottom: 20px;
+  opacity: 1;
+  padding-bottom: 4px;
+  padding-top: 15px;
+}
+
+
+/* Animate view transitions with `ngView` */
+.view-container {
+  position: relative;
+}
+
+.view-frame {
+  margin-top: 20px;
+}
+
+.view-frame.ng-enter,
+.view-frame.ng-leave {
+  background: white;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.view-frame.ng-enter {
+  animation: 1s fade-in;
+  z-index: 100;
+}
+
+.view-frame.ng-leave {
+  animation: 1s fade-out;
+  z-index: 99;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Older browsers might need vendor-prefixes for keyframes and animation! */

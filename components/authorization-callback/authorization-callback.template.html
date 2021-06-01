@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+
+<div ng-if="authorizationCallbackController.loading">
+    <h3 class= "text-center"><i class="fa fa-fw fa-spinner fa-spin"></i> Processing OIDC</h3>
+</div>
+<div ng-if="authorizationCallbackController.errorCode > 0">
+    <h3 class= "text-center text-danger"><marka><strong>Error {{authorizationCallbackController.errorCode}} - {{authorizationCallbackController.errorMessage}}</strong></marka></h3>
+</div>

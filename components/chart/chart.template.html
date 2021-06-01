@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+  <div ng-if="chartController.titlePosition == 'top' && (chartController.title || chartController.description)">
+    <h4>{{chartController.title}}</h4>
+    <span class="text-muted" ng-if="chartController.description">{{chartController.description}}<br></span>
+    <br>
+  </div>
+  <canvas id="{{chartController.canvasId}}" width="{{chartController.width}}" height="{{chartController.height}}" class="center-block"></canvas>
+  <div ng-if="chartController.data.length == 0" style="display: table; margin-top: -{{chartController.height}}px; height: {{chartController.height}}px;" class="center-block">
+    <div style="display: table-cell; vertical-align: middle;">
+        <strong>No records found</strong>
+    </div>
+  </div>
+  <div ng-if="chartController.loading" style="display: table; margin-top: -{{chartController.height}}px; height: {{chartController.height}}px;" class="center-block">
+    <div style="display: table-cell; vertical-align: middle;">
+        <strong><i class="fa fa-fw fa-spinner fa-spin"></i> Loading</strong>
+    </div>
+  </div>
+  <div ng-if="chartController.errorCode > 0" style="display: table; margin-top: -{{chartController.height}}px; height: {{chartController.height}}px;" class="center-block">
+    <div class="text-danger" style="display: table-cell; vertical-align: middle;">
+        <marka><strong>Error {{chartController.errorCode}} - {{chartController.errorMessage}}</strong></marka>
+    </div>
+  </div>
+  <div ng-if="chartController.titlePosition == 'bottom' && (chartController.title || chartController.description)">
+    <br>
+    <h4>{{chartController.title}}</h4>
+    <span class="text-muted" ng-if="chartController.description">{{chartController.description}}<br></span>
+  </div>

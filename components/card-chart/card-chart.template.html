@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+  <div class="panel {{(cardChartController.panelColor ? 'panel-' + cardChartController.panelColor : 'panel-default')}}">
+    <div class="panel-heading">
+      <h4 class="panel-title text-left">{{cardChartController.title}}</h4>
+    </div>
+    <div class="panel-body">
+      <div ng-if="cardChartController.data.length > 0 && !cardChartController.url" style="font-weight: bold; font-size: 32px; text-align: center;">
+        <i class="mdi mdi-36px {{cardChartController.panelIcon}} pull-right" aria-hidden="true"></i>{{cardChartController.data[0].value}}
+      </div>
+      <div ng-if="cardChartController.data.length > 0 && cardChartController.url" style="font-weight: bold; font-size: 32px; text-align: center;">
+        <i class="mdi mdi-36px {{cardChartController.panelIcon}} pull-right" aria-hidden="true"></i><a ng-href="{{cardChartController.url}}">{{cardChartController.data[0].value}}</a>
+      </div>
+      <div ng-if="cardChartController.errorCode == 0 && cardChartController.data.length == 0">
+        <div style="display: table-cell; vertical-align: middle; text-align: center;">
+          <strong>No records found</strong>
+        </div>
+      </div>
+      <div ng-if="cardChartController.loading">
+        <div style="display: table-cell; vertical-align: middle; text-align: center;">
+          <strong><i class="fa fa-fw fa-spinner fa-spin"></i> Loading</strong>
+        </div>
+      </div>
+      <div ng-if="cardChartController.errorCode > 0">
+        <div class="text-danger" style="display: table-cell; vertical-align: middle; text-align: center;">
+          <marka><strong>Error {{cardChartController.errorCode}} - {{cardChartController.errorMessage}}</strong></marka>
+        </div>
+      </div>
+    </div>
+  </div>

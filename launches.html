@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demoApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Follow every rocket launch, learn about vehicles, payloads, spacecraft and launching facilities. SpaceDB.org is the one stop place for everything space related.">
+  <meta name="keywords" content="space exploration,launch,rocket,payload,satellite,spacex,ula,nasa,cape canaveral,ksc,dragon,dragon 2,falcon 9,falcon heavy,f9,fh,atlas v,delta ii,delta iv,its,mars">
+  <title>SpaceDB.org Website</title>
+
+  <link rel="stylesheet" href="//cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+  <!-- Bootstrap -->
+  <!-- <link rel="stylesheet" href="_resources/css/bootswatch/slate/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- AngularJS -->
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/satellite.js/dist/satellite.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js" integrity="sha384-mVRLpSa1BOMjZqAeHjV/j7j2H5F+4uYD7NRPDeU7U3KznLYMxfpQfXv/FYBiC6i3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js" integrity="sha384-shptn2STIMuivSfRtN/VVpwZ5bZ8UpIxnGV4u37yrW1dqnMUBMPyAMsG2aaqmKOR" crossorigin="anonymous"></script>
+  <script src="app.module.js"></script>
+
+  <script src="components/responsive-table/responsive-table.module.js"></script>
+  <script src="components/responsive-table/responsive-table.component.js"></script>
+
+
+<!--
+  <link rel="stylesheet" href="app22.css"> -->
+  <!--<link rel="stylesheet" href="dashboard.css"> -->
+  <!--<link rel="stylesheet" href="app.animations.css"> -->
+
+
+  <style>
+  .mdi::before {
+      font-size: 24px;
+      line-height: 14px;
+  }
+  .btn .mdi::before {
+      position: relative;
+      top: 4px;
+  }
+  .btn-xs .mdi::before {
+      font-size: 18px;
+      top: 3px;
+  }
+  .btn-sm .mdi::before {
+      font-size: 18px;
+      top: 3px;
+  }
+  .dropdown-menu .mdi {
+      width: 18px;
+  }
+  .dropdown-menu .mdi::before {
+      position: relative;
+      top: 4px;
+      left: -8px;
+  }
+  .nav .mdi::before {
+      position: relative;
+      top: 4px;
+  }
+  .navbar .navbar-toggle .mdi::before {
+      position: relative;
+      top: 4px;
+      color: #FFF;
+  }
+  .breadcrumb .mdi::before {
+      position: relative;
+      top: 4px;
+  }
+  .breadcrumb a:hover {
+      text-decoration: none;
+  }
+  .breadcrumb a:hover span {
+      text-decoration: underline;
+  }
+  .alert .mdi::before {
+      position: relative;
+      top: 4px;
+      margin-right: 2px;
+  }
+  .input-group-addon .mdi::before {
+      position: relative;
+      top: 3px;
+  }
+  .navbar-brand .mdi::before {
+      position: relative;
+      top: 2px;
+      margin-right: 2px;
+  }
+  .list-group-item .mdi::before {
+      position: relative;
+      top: 3px;
+      left: -3px
+  }
+
+  .form-group.required .control-label:before  {
+    content:"* ";
+    color: #DB9406;
+  }
+
+
+
+  </style>
+
+
+</head>
+<body>
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="main.html">SpaceDB.org - The Space Database Site</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="main.html">Dashboard</a></li>
+          <li><a href="#">API</a></li>
+          <li><a href="#">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+<!--        <ul class="nav nav-sidebar">
+          <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span><i class="fa fa-fw fa-bar-chart pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Launches<i class="fa fa-fw fa-rocket pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Payloads<i class="fa fa-fw fa-globe pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Rockets & Spacecrafts<i class="fa fa-fw fa-space-shuttle pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Launch Facilities<i class="fa fa-fw fa-map-marker pull-right" aria-hidden="true"></i></a></li>
+	        <li><a href="#">Companies<i class="fa fa-fw fa-building-o pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Upcoming Events<i class="fa fa-fw fa-calendar-o pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Public Images<i class="fa fa-fw fa-picture-o pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Contributors<i class="fa fa-fw fa-users pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Sponsors & Donors<i class="fa fa-fw fa-thumbs-o-up pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">Terminology & Acronyms<i class="fa fa-fw fa-graduation-cap pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="#">About Us<i class="fa fa-fw fa-info pull-right" aria-hidden="true"></i></a></li>
+        </ul>  -->
+        <ul class="nav nav-sidebar">
+          <li><a href="main.html">Dashboard<i class="mdi mdi-18px mdi-chart-bar pull-right" aria-hidden="true"></i></a></li>
+          <li class="active"><a href="launches.html">Launches<span class="sr-only"> (current)</span><i class="mdi mdi-18px mdi-earth pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="payloads.html">Payloads<i class="mdi mdi-18px mdi-satellite-variant pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="rockets.html">Rockets & Spacecrafts<i class="mdi mdi-18px mdi-rocket pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="facilities.html">Launch Facilities<i class="mdi mdi-18px mdi-map-marker pull-right" aria-hidden="true"></i></a></li>
+	        <li><a href="companies.html">Companies<i class="mdi mdi-18px mdi-domain pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="events.html">Upcoming Events<i class="mdi mdi-18px mdi-calendar-blank pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="images.html">Public Images<i class="mdi mdi-18px mdi-camera pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="contributors.html">Contributors<i class="mdi mdi-18px mdi-account-multiple pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="sponsors.html">Sponsors & Donors<i class="mdi mdi-18px mdi-thumb-up-outline pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="terminology.html">Terminology & Acronyms<i class="mdi mdi-18px mdi-school pull-right" aria-hidden="true"></i></a></li>
+          <li><a href="about.html">About<i class="mdi mdi-18px mdi-information-outline pull-right" aria-hidden="true"></i></a></li>
+        </ul>
+        <countdown></countdown>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="page-header"><i class="mdi mdi-36px mdi-earth pull-right" aria-hidden="true"></i>Launches</h2>
+
+        <h3 class="sub-header">Past Launches<small class="pull-right">Sources: Wikipedia, Reddit, Spaceflight Now</small></h3>
+        <responsive-table
+          id="past-launches"
+          hide-header="true"
+          title="Past Launches"
+          source="past-launches.json"
+          order-by="launchDate"
+          reverse="true"
+          timezone-selector="true"
+          fields="[
+            {field: 'launchDate', displayName: 'Launch Date', class: 'col-sm-4 col-md-2', filter: 'datetimetimezone', options: {locale: 'en-US', dateFormat: {day: '2-digit', month: 'short', year: 'numeric'}, timeFormat: {hour: 'numeric', minute: '2-digit', timeZoneName: 'short'}}},
+            {field: 'company', displayName: 'Company'},
+            {field: 'vehicle', displayName: 'Vehicle'},
+            {field: 'facility', displayName: 'Launch Site'},
+            {field: 'payload', displayName: 'Payload'},
+            {field: 'orbit', displayName: 'Orbit'},
+            {field: 'customer', displayName: 'Customer'},
+            {field: 'payloadOutcome', displayName: 'Outcome'},
+            {field: 'landingOutcome', displayName: 'Landing'}
+          ]">
+        </responsive-table>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+
+
+</body>
+</html>

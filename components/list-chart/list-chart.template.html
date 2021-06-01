@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+  <ul class="list-group">
+    <li class="list-group-item active" ng-if="!listChart.hideHeader"><strong>{{listChart.title}}</strong></li>
+    <li class="list-group-item active" ng-if="listChart.hideHeader" style2="background: transparent;"><strong>{{listChart.title}}</strong></li>
+    <li class="list-group-item text-center" ng-if="listChart.data.length == 0" style2="background: transparent;"><br><strong>No records found</strong><br><br></li>
+    <li class="list-group-item text-center" ng-if="listChart.loading" style2="background: transparent;"><br><strong><i class="fa fa-fw fa-spinner fa-spin"></i> Loading</strong><br><br></li>
+    <li class="list-group-item text-center text-danger" ng-if="listChart.errorCode > 0" style2="background: transparent;"><br><marka><strong>Error {{listChart.errorCode}} - {{listChart.errorMessage}}</strong></marka><br><br></li>
+    <li class="list-group-item" ng-repeat="record in listChart.data" style="background: transparent;"><i class="mdi mdi-18px mdi-play" aria-hidden="true"></i> {{record.label}}<span class="pull-right">{{record.qty + (listChart.showPercentage ? ' (' + ((100 * record.qty / listChart.sum) | number : listChart.fractionSize) + '%)' : '') + (listChart.units ? ' ' + listChart.units : '')}}</span><span class="list-group-progress" ng-if="listChart.showPercentageBar" style="width: {{(100 * record.qty / (listChart.extendPercentageBar ? listChart.max : listChart.sum)) | number : listChart.fractionSize}}%;"></span></li>
+    <li class="list-group-item" ng-if="listChart.showSum" style2="background: transparent;"><strong>Total<span class="pull-right">{{listChart.sum + (listChart.showPercentage ? ' (' + (100 | number : listChart.fractionSize) + '%)': '') + (listChart.units ? ' ' + listChart.units : '')}}</span></strong></li>
+    <li class="list-group-item" ng-if="listChart.showAverage" style2="background: transparent;"><strong>Average<span class="pull-right">{{listChart.average + (listChart.showPercentage ? ' (' + (100 * record.average / listChart.sum) | number : listChart.fractionSize) + '%': '') + (listChart.units ? ' ' + listChart.units : '')}}</span></strong></li>
+    <li class="list-group-item text-center" ng-if="listChart.buttonLink" style2="background: transparent;">
+      <a ng-href="{{listChart.buttonLink}}" class="btn btn-default btn-sm" role="button" title="{{listChart.buttonMessage}}"><i class="mdi mdi-18px {{listChart.buttonIcon}}" aria-hidden="true" ></i> {{listChart.buttonMessage}}</a>
+    </li>
+  </ul>

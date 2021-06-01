@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+      <center>Authorization</center>
+      <div id="authorization-selector" class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary" ng-class="{'active': authorizationController.method == 'api-key'}" ng-click="authorizationController.setAuthorization('api-key')">
+          <input type="radio" name="options" id="option-api-key" autocomplete="off"> API Key
+        </label>
+        <label class="btn btn-primary" ng-class="{'active': authorizationController.method == 'oidc'}" ng-click="authorizationController.setAuthorization('oidc')">
+          <input type="radio" name="options" id="option-oidc" autocomplete="off"> OIDC
+        </label>
+      </div>
