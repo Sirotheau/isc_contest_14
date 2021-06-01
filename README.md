@@ -34,6 +34,9 @@ Table Page
 Form Page
 ![Form Page](./images/readme_img_3.png)
 
+Mobile Support
+![Form Page](./images/readme_img_4.png)
+
 ## Installation Steps
 
 1. Download the code to your local disk
