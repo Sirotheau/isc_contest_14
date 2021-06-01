@@ -35,7 +35,7 @@ Form Page
 
 ## Installation Steps
 
-1. Download the code to your local disk using `git clone https://github.com/Sirotheau/isc_contest_14.git`
+1. Download the code to your local disk using `git clone --depth=1 https://github.com/Sirotheau/isc_contest_14.git`
 1. Upload all the files to a web server
 1. Configure the initial page to "index.html"
 
