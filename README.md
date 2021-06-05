@@ -54,5 +54,6 @@ git clone --depth=1 https://github.com/Sirotheau/isc_contest_14.git
 * Export Capabilities
 * On Demand Reporting
 * API Side Pagination
+* Other Resources
 * Upgrade to latest version of Angular
 * Upgrade to latest version of Bootstrap
