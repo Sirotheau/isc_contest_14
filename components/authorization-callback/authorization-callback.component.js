@@ -80,13 +80,18 @@
               document.cookie = 'accessToken=' + vm.data.access_token +'; expires=' + expUTC;
               document.cookie = 'authorizationMethod=oidc; expires=' + expUTC;
 
-              if (vm.data.refresh_token) {
-                alert('refresh_token: ' + atob(vm.data.refresh_token.split('.')[1]));
-              }
+              //if (vm.data.refresh_token) {
+              //  alert('refresh_token: ' + atob(vm.data.refresh_token.split('.')[1]));
+              //}
+
+              vm.AccessToken = accessToken;
             }
-
-
-            window.location.href = 'index.html';
+            if (vm.data.id_token) {
+              var idToken = atob(vm.data.id_token.split('.')[1]);
+              vm.AccessToken = idToken;
+            }
+            
+            //window.location.href = 'index.html';
           },
           function errorCallback(response) {
             vm.errorCode = response.status;

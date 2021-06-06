@@ -6,3 +6,18 @@
 <div ng-if="authorizationCallbackController.errorCode > 0">
     <h3 class= "text-center text-danger"><marka><strong>Error {{authorizationCallbackController.errorCode}} - {{authorizationCallbackController.errorMessage}}</strong></marka></h3>
 </div>
+<div ng-if="!authorizationCallbackController.loading && authorizationCallbackController.errorCode = 0">
+    <h3>
+      <marka><strong>Access Token</strong></marka>
+    </h3>
+    <h3>
+      <marka><strong>{{authorizationCallbackController.accessToken}}</strong></marka>
+    </h3>
+    <br>
+    <h3>
+      <marka><strong>ID Token</strong></marka>
+    </h3>
+    <h3>
+      <marka><strong>{{authorizationCallbackController.idToken}}</strong></marka>
+    </h3>
+</div>
