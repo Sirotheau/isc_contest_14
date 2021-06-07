@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 
 <div ng-if="authorizationCallbackController.loading">
-    <h3 class= "text-center"><i class="fa fa-fw fa-spinner fa-spin"></i> Processing OIDC</h3>
+    <h3 class= "text-center"><i class="fa fa-fw fa-spinner fa-spin"></i> Processing OIDC Response</h3>
 </div>
 <div ng-if="authorizationCallbackController.errorCode > 0">
     <h3 class= "text-center text-danger"><marka><strong>Error {{authorizationCallbackController.errorCode}} - {{authorizationCallbackController.errorMessage}}</strong></marka></h3>
 </div>
-<div ng-if="!authorizationCallbackController.loading && authorizationCallbackController.errorCode = 0">
-    <h3>
+<div ng-if="!authorizationCallbackController.loading && authorizationCallbackController.idToken">
+    <h4 class= "text-left">
       <marka><strong>Access Token</strong></marka>
-    </h3>
-    <h3>
-      <marka><strong>{{authorizationCallbackController.accessToken}}</strong></marka>
-    </h3>
+    </h4>
+    <textarea class="form-control" rows="7">{{authorizationCallbackController.accessToken}}</textarea>
     <br>
-    <h3>
+    <h4 class= "text-left">
+      <marka><strong>Decoded Access Token</strong></marka>
+    </h4>
+    <textarea class="form-control" rows="3">{{authorizationCallbackController.decodedAccessToken}}</textarea>
+    <br>
+    <h4 class= "text-left">
       <marka><strong>ID Token</strong></marka>
-    </h3>
-    <h3>
-      <marka><strong>{{authorizationCallbackController.idToken}}</strong></marka>
-    </h3>
+    </h4>
+    <textarea class="form-control" rows="7">{{authorizationCallbackController.idToken}}</textarea>
+    <br>
+    <h4 class= "text-left">
+      <marka><strong>Decoded ID Token</strong></marka>
+    </h4>
+    <textarea class="form-control" rows="3">{{authorizationCallbackController.decodedIDToken}}</textarea>
 </div>

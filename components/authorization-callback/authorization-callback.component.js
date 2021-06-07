@@ -52,6 +52,10 @@
       vm.errorCode = 0;
       vm.errorMessage = '';
       vm.data = null;
+      vm.accessToken = '';
+      vm.decodedAccessToken = '';
+      vm.idToken = '';
+      vm.decodedIDToken = '';
 
       var urlParams = new URLSearchParams(window.location.search);
       var code = urlParams.get('code');
@@ -66,8 +70,10 @@
            data: 'grant_type=authorization_code&code=' + code + '&client_id=' + $rootScope.clientID + '&client_secret=' + $rootScope.clientSecret + '&redirect_uri=' + encodeURIComponent($rootScope.redirectUrl)
         }).then(function successCallback(response) {
             vm.data = response.data;
+
             if (vm.data.access_token) {
-              var accessToken = atob(vm.data.access_token.split('.')[1]);
+              var accessToken = JSON.parse(atob(vm.data.access_token.split('.')[1]));
+
               var iss = accessToken.iss;
               if (iss != $rootScope.issuer) {
                 vm.errorCode = '-1';
@@ -81,16 +87,18 @@
               document.cookie = 'authorizationMethod=oidc; expires=' + expUTC;
 
               //if (vm.data.refresh_token) {
-              //  alert('refresh_token: ' + atob(vm.data.refresh_token.split('.')[1]));
+              //  alert('refresh_token: ' + JSON.stringify(accessToken));
               //}
+              vm.accessToken = vm.data.access_token;
+              vm.decodedAccessToken = JSON.stringify(accessToken);
 
-              vm.AccessToken = accessToken;
             }
             if (vm.data.id_token) {
-              var idToken = atob(vm.data.id_token.split('.')[1]);
-              vm.AccessToken = idToken;
+              var idToken = JSON.parse(atob(vm.data.id_token.split('.')[1]));
+              vm.idToken = vm.data.id_token;
+              vm.decodedIDToken = JSON.stringify(idToken);
             }
-            
+            vm.loading = false;
             //window.location.href = 'index.html';
           },
           function errorCallback(response) {

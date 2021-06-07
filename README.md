@@ -57,6 +57,9 @@ If properly configured, you should be able to see both the Access and ID Tokens.
 
 As a final note, ensure the tokens above were properly signed by the OIDC Provider. You can use the OIDC Provider JSON Web Key Set to validate the signatures. It is usually listed by the OIDP Discovery Service under the metadata "jwks_uri".
 
+* User: demouser
+* Password: D3moUser$
+
 ## Future Enhancements
 * Export Capabilities
 * On Demand Reporting
